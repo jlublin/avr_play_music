@@ -62,7 +62,7 @@ void start_PWM(char *snd_data)
 	Init counter: 0
 	Enable timer0 overflow interrupt
 	*/
-//	TCNT0 = 0;
+	TCNT0 = 0;
 	TIMSK |= (1 << TOIE0);
 }
 
