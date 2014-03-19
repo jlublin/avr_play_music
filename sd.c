@@ -68,11 +68,11 @@ void init_SD()
 
 char sd_block[512];
 
-char *read_block_SD(unsigned long offset)
+char *read_block_SD(unsigned long block_nr)
 {
 	uint16_t i;
 
-	if(send_command_SD(READ_SINGLE_BLOCK, offset<<9))
+	if(send_command_SD(READ_SINGLE_BLOCK, block_nr<<9))
 		return 0;
 
 	set_cs(0);
