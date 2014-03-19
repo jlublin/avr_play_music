@@ -7,8 +7,6 @@ uint16_t sample_count;
 char *sound_data;
 volatile uint8_t *read_block_request;
 
-char a;
-
 ISR(TIMER0_OVF_vect)
 {
 	if(counter == 0)
@@ -61,7 +59,7 @@ void start_PWM(char *snd_data)
 	Init counter: 0
 	Enable timer0 overflow interrupt
 	*/
-	TCNT0 = 0;
+//	TCNT0 = 0;
 	TIMSK |= (1 << TOIE0);
 }
 
