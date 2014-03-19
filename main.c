@@ -38,23 +38,8 @@ int main(void)
 	{
 		while(!read_block) {} // Spin-lock like request
 
-//		print_pgm_USART(PSTR("Reading block: "));
-//		print_hex_word(next_block);
-//		write_USART('\n');
-
-//		stop_PWM();
-
 		bytes = read_block_SD(next_block++, (read_block - 1)*256);
 		read_block = 0;
-
-//		if(bytes == 0)
-//		{
-//			print_pgm_USART(PSTR("Error reading block from SD card\n"));
-//			while(1) {}
-//		}
-
-//		print_pgm_USART(PSTR("Start playing\n"));
-
 	}
 
 	return 0;
