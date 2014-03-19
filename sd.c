@@ -61,18 +61,20 @@ void init_SD()
 		{}
 
 	send_command_SD(CRC_ON_OFF, 0); // Turn it off (already off?)
-	send_command_SD(SET_BLOCK_LEN, 512); // (Already 512?)
+	send_command_SD(SET_BLOCK_LEN, 256);	// 256 allows two blocks to fit in
+											// SRAM along the other stuff
+
 	
 	SPCR &= ~(1 << SPR0);	// f_osc/4
 }
 
-char sd_block[512];
+char sd_block[512];	// 2*256
 
-char *read_block_SD(unsigned long block_nr)
+char *read_block_SD(unsigned long block_nr, uint16_t offset)
 {
 	uint16_t i;
 
-	if(send_command_SD(READ_SINGLE_BLOCK, block_nr<<9))
+	if(send_command_SD(READ_SINGLE_BLOCK, block_nr<<8))
 		return 0;
 
 	set_cs(0);
@@ -80,8 +82,8 @@ char *read_block_SD(unsigned long block_nr)
 	while(send_byte_SPI(0xFF) != 0xFE)
 		{}
 
-	for(i = 0; i < 512; i++)
-		sd_block[i] = send_byte_SPI(0xFF);
+	for(i = 0; i < 256; i++)
+		sd_block[offset + i] = send_byte_SPI(0xFF);
 
 	// 16-bit CRC
 	send_byte_SPI(0xFF);

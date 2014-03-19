@@ -14,11 +14,14 @@ ISR(TIMER0_OVF_vect)
 		OCR1A = sound_data[sample_count];
 		sample_count++;
 
+		if(sample_count == 256)
+			*read_block_request = 1;	// Read block to first block buffer
+										// and continue playing from second
+
 		if(sample_count >= 512)
 		{
-//			stop_PWM();
-			*read_block_request = 1;
-			sample_count = 0;
+			*read_block_request = 2;	// Read block to second block buffer
+			sample_count = 0;			// and start playing from first
 		}
 	}
 

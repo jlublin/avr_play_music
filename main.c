@@ -30,7 +30,9 @@ int main(void)
 	print_hex_word(&read_block);
 	write_USART('\n');
 
-	read_block = 1;
+	bytes = read_block_SD(next_block++, 0);
+	read_block = 0;
+	start_PWM(bytes);
 
 	while(1)
 	{
@@ -42,7 +44,7 @@ int main(void)
 
 //		stop_PWM();
 
-		bytes = read_block_SD(next_block++);
+		bytes = read_block_SD(next_block++, (read_block - 1)*256);
 		read_block = 0;
 
 //		if(bytes == 0)
@@ -52,7 +54,7 @@ int main(void)
 //		}
 
 //		print_pgm_USART(PSTR("Start playing\n"));
-		start_PWM(bytes);
+
 	}
 
 	return 0;
