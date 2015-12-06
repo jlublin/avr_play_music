@@ -47,6 +47,9 @@ int main(void)
 	{
 		while(!read_block) {} // Spin-lock like request
 
+		if(next_block >= 3600)
+			next_block = 0;
+
 		bytes = read_block_SD(next_block++, (read_block - 1)*256);
 		read_block = 0;
 	}
