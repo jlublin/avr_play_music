@@ -31,11 +31,11 @@ int main(void)
 	wdt_reset();
 	sei();
 
-	print_pgm_USART(PSTR("\nReset\nInitialized everything\n"));
+//	print_pgm_USART(PSTR("\nReset\nInitialized everything\n"));
 
-	print_pgm_USART(PSTR("(main) Lock address: "));
-	print_hex_word(&read_block);
-	write_USART('\n');
+//	print_pgm_USART(PSTR("(main) Lock address: "));
+//	print_hex_word(&read_block);
+//	write_USART('\n');
 
 	wdt_reset();
 	bytes = read_block_SD(next_block++, 0);
