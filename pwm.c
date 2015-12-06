@@ -1,6 +1,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
+#include <avr/wdt.h>
 
 uint8_t counter;
 uint16_t sample_count;
@@ -9,6 +10,8 @@ volatile uint8_t *read_block_request;
 
 ISR(TIMER0_OVF_vect)
 {
+	wdt_reset();
+
 	if(counter == 0)
 	{
 		OCR1A = sound_data[sample_count];
